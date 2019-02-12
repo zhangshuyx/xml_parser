@@ -7,8 +7,8 @@ import os,sys,time,io
 from os.path import join, splitext, abspath
 
 #指定输入输出文件路径
-input_path  = '/home/kkk/python/mro'
-output_path = '/home/kkk/python/mro'
+input_path  = '.'
+output_path = '.'
 os.chdir(input_path)
 #指定每次处理多少个文件，为-1时表示处理文件夹下所有文件
 paser_num = -1
