@@ -3,7 +3,7 @@
 #将gz文件解压为xml文件，并由dom或sax解析，最后写入csv文件
 
 #导入相关模块
-import os,sys,time,cStringIO
+import os,sys,time,io
 from os.path import join, splitext, abspath
 
 #指定输入输出文件路径
@@ -29,12 +29,12 @@ def dom_parser(gz):
 	
 	This function read a .xml.gz file each time, and ungzip it, then parse it to string with dom_parser,
 	at the end return the string and element v's row count.'''
-	import gzip,cStringIO
+	import gzip,io
 	import xml.dom.minidom
 	
 	vs_cnt = 0
 	str_s = ''
-	file_io = cStringIO.StringIO()
+	file_io = io.StringIO()
 	xm = gzip.open(gz,'rb')
 	print("已读入：%s.\n解析中：" % (os.path.abspath(gz)))
 	doc = xml.dom.minidom.parseString(xm.read())
@@ -62,7 +62,7 @@ def sax_parser(gz):
 	
 	This function read a .xml.gz file each time, and ungzip it, then parse it to string with sax_parser,
 	at the end return the string and element v's row count.'''
-	import os,gzip,cStringIO
+	import os,gzip,io
 	from xml.parsers.expat import ParserCreate
 
 	#变量声明
@@ -71,7 +71,7 @@ def sax_parser(gz):
 	s = ''
 	global flag 
 	flag = False
-	file_io = cStringIO.StringIO()
+	file_io = io.StringIO()
 	
 	#Sax解析类
 	class DefaultSaxHandler(object):
@@ -136,12 +136,12 @@ def ET_parser(gz):
 	
 	This function read a .xml.gz file each time, and ungzip it, then parse it to string with ElementTree_parser,
 	at the end return the string and element v's row count.'''
-	import os,gzip,cStringIO
+	import os,gzip,io
 	import xml.etree.cElementTree as ET
 
 	vs_cnt = 0
 	str_s = ''
-	file_io = cStringIO.StringIO()
+	file_io = io.StringIO()
 	xm = gzip.open(gz,'rb')
 	print("已读入：%s.\n解析中：" % (os.path.abspath(gz)))
 	tree = ET.ElementTree(file=xm)
@@ -162,12 +162,12 @@ def ET_parser_iter(gz):
 	
 	This function read a .xml.gz file each time, and ungzip it, then parse it to string with ElementTree_parser_iter,
 	at the end return the string and element v's row count.'''
-	import os,gzip,cStringIO
+	import os,gzip,io
 	import xml.etree.cElementTree as ET
 
 	vs_cnt = 0
 	str_s = ''
-	file_io = cStringIO.StringIO()
+	file_io = io.StringIO()
 	xm = gzip.open(gz,'rb')
 	print("已读入：%s.\n解析中：" % (os.path.abspath(gz)))
 	d_eNB = {}
@@ -242,12 +242,12 @@ def lxml_parser_iter(gz):
 	
 	This function read a .xml.gz file each time, and ungzip it, then parse it to string with lxml_parser_iter,
 	at the end return the string and element v's row count.'''
-	import os,gzip,cStringIO
+	import os,gzip,io
 	from lxml import etree
 
 	vs_cnt = 0
 	str_s = ''
-	file_io = cStringIO.StringIO()
+	file_io = io.StringIO()
 	xm = gzip.open(gz,'rb')
 	print("已读入：%s.\n解析中：" % (os.path.abspath(gz)))
 	d_eNB = {}
@@ -299,7 +299,7 @@ print("*"*50)
 
 #截短gzs
 gzs = gzs[0:paser_num]
-output = cStringIO.StringIO()
+output = io.StringIO()
 start_time = time.time()
 gz_cnt = 0
 for gz in gzs:
